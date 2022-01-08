@@ -7,8 +7,12 @@ import ActivityDashboard from "../../features/activities/dashboard/ActivityDashb
 import { v4 as uuid } from "uuid";
 import agent from "../api/agent";
 import LoadingComponent from "./LoadingComponent";
+import { useStore } from "../stores/store";
+import { observer } from "mobx-react-lite";
 
 function App() {
+  const { activityStore } = useStore();
+
   const [activities, setActivities] = useState<Activity[]>([]);
   const [selectedActivity, setSelectedActivity] = useState<
     Activity | undefined
@@ -71,7 +75,11 @@ function App() {
   }
 
   function handleDeleteActivity(id: string) {
-    setActivities([...activities.filter((x) => x.id != id)]);
+    setSubmitting(true);
+    agent.Activities.delete(id).then(() => {
+      setActivities([...activities.filter((x) => x.id != id)]);
+      setSubmitting(false);
+    });
   }
 
   if (loading) return <LoadingComponent content="Carregando página" />;
@@ -80,6 +88,8 @@ function App() {
     <>
       <NavBar openForm={handleOpenForm} />
       <Container style={{ marginTop: "7em" }}>
+        <h2>{activityStore.title}</h2>
+
         <ActivityDashboard
           activities={activities}
           selectedActivity={selectedActivity}
@@ -97,4 +107,4 @@ function App() {
   );
 }
 
-export default App;
+export default observer(App);
