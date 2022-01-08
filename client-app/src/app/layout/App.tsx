@@ -18,20 +18,11 @@ function App() {
     Activity | undefined
   >(undefined);
   const [editMode, setEditMode] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    agent.Activities.list().then((response) => {
-      let activities: Activity[] = [];
-      response.forEach((activity) => {
-        activity.date = activity.date.split("T")[0];
-        activities.push(activity);
-      });
-      setActivities(activities);
-      setLoading(false);
-    });
-  }, []);
+    activityStore.loadAcitvities();
+  }, [activityStore]);
 
   function handleSelectedActivity(id: string) {
     setSelectedActivity(activities.find((x) => x.id === id));
@@ -82,16 +73,15 @@ function App() {
     });
   }
 
-  if (loading) return <LoadingComponent content="Carregando página" />;
+  if (activityStore.loadingInitial)
+    return <LoadingComponent content="Carregando página" />;
 
   return (
     <>
       <NavBar openForm={handleOpenForm} />
       <Container style={{ marginTop: "7em" }}>
-        <h2>{activityStore.title}</h2>
-
         <ActivityDashboard
-          activities={activities}
+          activities={activityStore.activities}
           selectedActivity={selectedActivity}
           selectActivity={handleSelectedActivity}
           cancelSelectActivity={handleCancelSelectActivity}
