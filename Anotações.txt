@@ -1,0 +1,7 @@
+Criando um novo componente:
+Passo 1: criar um modelo (ex: models/serverError)
+Passo 2: criar uma store para o componente (ex: stores/CommonStore)
+passo 3: adicionar a store criada no arquivo stores/store.ts
+passo 4: criar o arquivo front que exibirá as informações desse novo componente.
+passo 5: fazer as devidas configurações para o novo componente no arquivo api/agent.ts.
+passo 6: criar uma rota para o front do componente no layout/App.tsx
