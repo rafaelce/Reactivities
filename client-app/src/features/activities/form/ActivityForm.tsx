@@ -8,6 +8,7 @@ import { v4 as uuid } from "uuid";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FrmTextInput from "../../../app/common/form/FrmTextInput";
+import FrmTextArea from "../../../app/common/form/FrmTextArea";
 
 export default observer(function ActivityForm() {
   const history = useHistory();
@@ -44,29 +45,6 @@ export default observer(function ActivityForm() {
     if (id) loadActivity(id).then((activity) => setActivity(activity!));
   }, [id, loadActivity]);
 
-  // function handleSubmit() {
-  //   if (activity.id.length === 0) {
-  //     let newActivity = {
-  //       ...activity,
-  //       id: uuid(),
-  //     };
-  //     createActivity(newActivity).then(() =>
-  //       history.push(`/activities/${newActivity.id}`)
-  //     );
-  //   } else {
-  //     updateActivity(activity).then(() =>
-  //       history.push(`/activities/${activity.id}`)
-  //     );
-  //   }
-  // }
-
-  // function handleInputChange(
-  //   event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  // ) {
-  //   const { name, value } = event.target;
-  //   setActivity({ ...activity, [name]: value });
-  // }
-
   if (loadingInitial) return <LoadingComponent content="Loading activity..." />;
   return (
     <Segment clearing>
@@ -80,7 +58,12 @@ export default observer(function ActivityForm() {
           <Form className="ui form" onSubmit={handleSubmit} autoComplete="off">
             <FrmTextInput name="title" placeholder="Title" />
 
-            <FrmTextInput placeholder="Description" name="description" />
+            <FrmTextArea
+              rows={3}
+              placeholder="Description"
+              name="description"
+            />
+
             <FrmTextInput placeholder="Category" name="category" />
             <FrmTextInput placeholder="Date" name="date" />
             <FrmTextInput placeholder="City" name="city" />
