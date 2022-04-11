@@ -9,6 +9,8 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import FrmTextInput from "../../../app/common/form/FrmTextInput";
 import FrmTextArea from "../../../app/common/form/FrmTextArea";
+import FrmSelectInput from "../../../app/common/form/FrmSelectInput";
+import { categoryOptions } from "../../../app/common/options/categoryOptions";
 
 export default observer(function ActivityForm() {
   const history = useHistory();
@@ -64,7 +66,11 @@ export default observer(function ActivityForm() {
               name="description"
             />
 
-            <FrmTextInput placeholder="Category" name="category" />
+            <FrmSelectInput
+              options={categoryOptions}
+              placeholder="Category"
+              name="category"
+            />
             <FrmTextInput placeholder="Date" name="date" />
             <FrmTextInput placeholder="City" name="city" />
             <FrmTextInput placeholder="Venue" name="venue" />
