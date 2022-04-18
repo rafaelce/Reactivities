@@ -11,6 +11,7 @@ import FrmTextInput from "../../../app/common/form/FrmTextInput";
 import FrmTextArea from "../../../app/common/form/FrmTextArea";
 import FrmSelectInput from "../../../app/common/form/FrmSelectInput";
 import { categoryOptions } from "../../../app/common/options/categoryOptions";
+import FrmDateInput from "../../../app/common/form/FrmDateInput";
 
 export default observer(function ActivityForm() {
   const history = useHistory();
@@ -71,7 +72,13 @@ export default observer(function ActivityForm() {
               placeholder="Category"
               name="category"
             />
-            <FrmTextInput placeholder="Date" name="date" />
+            <FrmDateInput
+              placeholderText="Date"
+              name="date"
+              showTimeSelect
+              timeCaption="time"
+              dateFormat="MMMM d, yyyy h:mm aa"
+            />
             <FrmTextInput placeholder="City" name="city" />
             <FrmTextInput placeholder="Venue" name="venue" />
 
