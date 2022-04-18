@@ -12,6 +12,7 @@ import FrmTextArea from "../../../app/common/form/FrmTextArea";
 import FrmSelectInput from "../../../app/common/form/FrmSelectInput";
 import { categoryOptions } from "../../../app/common/options/categoryOptions";
 import FrmDateInput from "../../../app/common/form/FrmDateInput";
+import { Activity } from "../../../app/models/activity";
 
 export default observer(function ActivityForm() {
   const history = useHistory();
@@ -25,12 +26,12 @@ export default observer(function ActivityForm() {
   } = activityStore;
   const { id } = useParams<{ id: string }>();
 
-  const [activity, setActivity] = useState({
+  const [activity, setActivity] = useState<Activity>({
     id: "",
     title: "",
     category: "",
     description: "",
-    date: "",
+    date: null,
     city: "",
     venue: "",
   });
