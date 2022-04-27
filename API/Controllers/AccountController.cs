@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Services;
@@ -43,6 +44,37 @@ namespace API.Controllers
             }
 
             return Unauthorized();
+        }
+
+        [HttpPost("register")]
+        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+        {
+            if (_userManager.Users.Any(x => x.Email == registerDto.Email)) return BadRequest("Email taken");
+
+            if (_userManager.Users.Any(x => x.UserName == registerDto.Username)) return BadRequest("Username taken");
+
+            var user = new AppUser
+            {
+                DisplayName = registerDto.DisplayName,
+                Email = registerDto.Email,
+                UserName = registerDto.Username,
+            };
+
+            var result = await _userManager.CreateAsync(user, registerDto.Password);
+
+            if (result.Succeeded)
+            {
+                return new UserDto
+                {
+                    DisplayName = registerDto.DisplayName,
+                    Image = null,
+                    Token = _tokenService.CreateToken(user),
+                    Username = user.UserName
+                };
+            }
+
+            return BadRequest("Problem registering user");
+
         }
     }
 }
