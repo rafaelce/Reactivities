@@ -33,10 +33,7 @@ namespace API.Controllers
             if (user == null) return Unauthorized();
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
-            if (result.Succeeded)
-            {
-                return CreateUserUserObject(user);
-            }
+            if (result.Succeeded) return CreateUserUserObject(user);
 
             return Unauthorized();
         }
@@ -57,10 +54,7 @@ namespace API.Controllers
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
-            if (result.Succeeded)
-            {
-                return CreateUserUserObject(user);
-            }
+            if (result.Succeeded) return CreateUserUserObject(user);
 
             return BadRequest("Problem registering user");
 
@@ -71,7 +65,6 @@ namespace API.Controllers
         public async Task<ActionResult<UserDto>> GetCurrenUser()
         {
             var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
-
             return CreateUserUserObject(user);
         }
 
