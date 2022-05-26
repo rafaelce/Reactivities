@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Core;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Persistence;
 
 namespace Application.Activities
