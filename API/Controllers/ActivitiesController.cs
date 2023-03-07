@@ -2,10 +2,12 @@ using System;
 using System.Threading.Tasks;
 using Application.Activities;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+
     public class ActivitiesController : BaseApiController
     {
         [HttpGet]
@@ -14,7 +16,7 @@ namespace API.Controllers
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetActivities(Guid id)
-                   => HandleResult(await Mediator.Send(new Detals.Query { Id = id }));
+        => HandleResult(await Mediator.Send(new Detals.Query { Id = id }));
 
         [HttpPost]
         public async Task<IActionResult> CreateActivity(Activity activity)

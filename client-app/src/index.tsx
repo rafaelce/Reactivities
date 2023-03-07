@@ -4,19 +4,14 @@ import "react-calendar/dist/Calendar.css";
 import "./app/layout/styles.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import "react-datepicker/dist/react-datepicker.css";
-import App from "./app/layout/App";
 import reportWebVitals from "./reportWebVitals";
 import { store, StoreContext } from "./app/stores/store";
-import { Router } from "react-router-dom";
-import { createBrowserHistory } from "history";
-
-export const history = createBrowserHistory();
+import { RouterProvider } from "react-router-dom";
+import { router } from "./app/router/Routes";
 
 ReactDOM.render(
   <StoreContext.Provider value={store}>
-    <Router history={history}>
-      <App />
-    </Router>
+    <RouterProvider router={router} />
   </StoreContext.Provider>,
   document.getElementById("root")
 );

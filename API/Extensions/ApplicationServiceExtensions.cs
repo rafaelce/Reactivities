@@ -2,6 +2,8 @@ using System;
 using Application.Activities;
 using Application.Core;
 using Application.Interfaces;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Infrastructure.Security;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +19,9 @@ namespace API.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services,
         IConfiguration config)
         {
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
+
             //!ativa o uso do contexto da aplicação. (SQL Server)
             //     services.AddDbContext<DataContext>(
             //        opt => opt.UseSqlServer(
@@ -25,15 +30,11 @@ namespace API.Extensions
             //    );
 
             //!ativa o uso do contexto da aplicação. (MySql)
+
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseMySql(config.GetConnectionString("MySqlConnection"),
                    new MySqlServerVersion(new Version()));
-            });
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
 
             services.AddCors(opt =>
@@ -48,7 +49,10 @@ namespace API.Extensions
 
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+            services.AddFluentValidationAutoValidation();
+            services.AddValidatorsFromAssemblyContaining<Create>();
             services.AddScoped<IUserAccessor, UserAccessor>();
+
             return services;
         }
     }

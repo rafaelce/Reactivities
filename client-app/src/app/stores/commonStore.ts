@@ -3,7 +3,7 @@ import { ServerError } from "../models/serverError";
 
 export default class CommonStore {
   error: ServerError | null = null;
-  token: string | null = window.localStorage.getItem("jwt");
+  token: string | null = localStorage.getItem("jwt");
   appLoaded = false;
 
   constructor() {
@@ -12,15 +12,18 @@ export default class CommonStore {
     reaction(
       () => this.token,
       (token) => {
-        if (token) window.localStorage.setItem("jwt", token);
-        else window.localStorage.removeItem("jwt");
+        if (token) {
+          localStorage.setItem("jwt", token);
+        } else {
+          localStorage.removeItem("jwt");
+        }
       }
     );
   }
 
-  setServerError = (error: ServerError) => {
+  setServerError(error: ServerError) {
     this.error = error;
-  };
+  }
 
   setToken = (token: string | null) => {
     this.token = token;

@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable, reaction, runInAction } from "mobx";
 import agent from "../api/agent";
 import { Activity } from "../models/activity";
 
@@ -9,9 +9,18 @@ export default class ActivityStore {
   editMode = false;
   loading = false;
   loadingInitial = false;
+  predicate = new Map().set("all", true);
 
   constructor() {
     makeAutoObservable(this);
+
+    reaction(
+      () => this.predicate.keys(),
+      () => {
+        this.activityRegistry.clear();
+        this.loadActivities();
+      }
+    );
   }
 
   get activitiesByDate() {
@@ -32,7 +41,7 @@ export default class ActivityStore {
     );
   }
 
-  loadAcitvities = async () => {
+  loadActivities = async () => {
     this.loadingInitial = true;
     try {
       const activities = await agent.Activities.list();
@@ -52,7 +61,7 @@ export default class ActivityStore {
       this.selectedActivity = activity;
       return activity;
     } else {
-      this.loadingInitial = true;
+      this.setLoadingInitial(true);
 
       try {
         activity = await agent.Activities.details(id);
@@ -69,13 +78,13 @@ export default class ActivityStore {
     }
   };
 
+  private getActivity = (id: string) => {
+    return this.activityRegistry.get(id);
+  };
+
   private setActivity = (activity: Activity) => {
     activity.date = new Date(activity.date!);
     this.activityRegistry.set(activity.id, activity);
-  };
-
-  private getActivity = (id: string) => {
-    return this.activityRegistry.get(id);
   };
 
   setLoadingInitial = (state: boolean) => {
