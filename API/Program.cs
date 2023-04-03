@@ -25,6 +25,8 @@ namespace API
             {
                 var context = services.GetRequiredService<DataContext>();
                 var userManager = services.GetRequiredService<UserManager<AppUser>>();
+
+                //configurando migration na aplicação
                 await context.Database.MigrateAsync();
                 await Seed.SeedData(context, userManager);
             }
