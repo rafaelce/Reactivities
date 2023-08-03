@@ -20,6 +20,14 @@ export default function ActivityListItem({ activity }: Props) {
   return (
     <Segment.Group>
       <Segment>
+        {activity.isCancelled && (
+          <Label
+            attached="top"
+            color="red"
+            content="Canceled"
+            style={{ texteAligh: "center" }}
+          />
+        )}
         <Item.Group>
           <Item>
             <Item.Image
@@ -45,7 +53,7 @@ export default function ActivityListItem({ activity }: Props) {
               {activity.isGoing && !activity.isHost && (
                 <ItemDescription>
                   <Label basic color="green">
-                    You are hosting this activity
+                    You are going to this activity
                   </Label>
                 </ItemDescription>
               )}
