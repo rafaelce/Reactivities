@@ -38,6 +38,8 @@ namespace API
             services.AddApplicationServices(_config);
             // aplicanto a extensão de Identity
             services.AddIdentityServices(_config);
+
+            DependencyContainer.RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
