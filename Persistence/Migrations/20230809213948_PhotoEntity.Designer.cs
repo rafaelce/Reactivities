@@ -11,8 +11,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230807131016_PhotoEntityAdded")]
-    partial class PhotoEntityAdded
+    [Migration("20230809213948_PhotoEntity")]
+    partial class PhotoEntity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -150,8 +150,8 @@ namespace Persistence.Migrations
                     b.Property<string>("AppUserId")
                         .HasColumnType("varchar(95)");
 
-                    b.Property<string>("IsMain")
-                        .HasColumnType("longtext");
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Url")
                         .HasColumnType("longtext");

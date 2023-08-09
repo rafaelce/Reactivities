@@ -147,8 +147,8 @@ namespace Persistence.Migrations
                     b.Property<string>("AppUserId")
                         .HasColumnType("varchar(95)");
 
-                    b.Property<string>("IsMain")
-                        .HasColumnType("longtext");
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Url")
                         .HasColumnType("longtext");

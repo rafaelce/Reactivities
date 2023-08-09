@@ -10,6 +10,7 @@ namespace Infrastructure.Photos
     public class PhotoAccessor : IPhotoAccessor
     {
         private readonly Cloudinary _cloudinary;
+
         public PhotoAccessor(IOptions<CloudinarySettings> config)
         {
             var account = new Account(
@@ -17,7 +18,6 @@ namespace Infrastructure.Photos
                 config.Value.ApiKey,
                 config.Value.ApiSecret
             );
-
             _cloudinary = new Cloudinary(account);
         }
 
@@ -34,14 +34,16 @@ namespace Infrastructure.Photos
 
                 var uploadResult = await _cloudinary.UploadAsync(uploadParams);
 
-                if (uploadResult.Error != null) throw new Exception(uploadResult.Error.Message);
+                if (uploadResult.Error != null)
+                {
+                    throw new Exception(uploadResult.Error.Message);
+                }
 
                 return new PhotoUploadResult
                 {
                     PublicId = uploadResult.PublicId,
                     Url = uploadResult.SecureUrl.ToString()
                 };
-
             }
 
             return null;
@@ -51,8 +53,7 @@ namespace Infrastructure.Photos
         {
             var deleteParams = new DeletionParams(publicId);
             var result = await _cloudinary.DestroyAsync(deleteParams);
-
-            return (result.Result == "ok") ? result.Result : null;
+            return result.Result == "ok" ? result.Result : null;
         }
     }
 }
