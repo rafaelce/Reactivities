@@ -20,7 +20,7 @@ export default observer(function ActivityListItemAttendee({
           trigger={
             <List.Item
               as={Link}
-              to={`/profile/${attendee.username}`}
+              to={`/profiles/${attendee.username}`}
               key={attendee.username}
             >
               <Image

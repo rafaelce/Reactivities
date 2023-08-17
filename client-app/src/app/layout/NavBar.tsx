@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { Button, Container, Dropdown, Menu, Image } from "semantic-ui-react";
 import { useStore } from "../stores/store";
 
-export default observer( function NavBar() {
+export default observer(function NavBar() {
   const {
     userStore: { user, logout },
   } = useStore();
@@ -39,7 +39,7 @@ export default observer( function NavBar() {
             <Dropdown.Menu>
               <Dropdown.Item
                 as={Link}
-                to={`/profile/${user?.username}`}
+                to={`/profiles/${user?.username}`}
                 text="My Profile"
                 icon="user"
               />
