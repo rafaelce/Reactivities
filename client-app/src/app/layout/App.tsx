@@ -6,7 +6,7 @@ import { observer } from "mobx-react-lite";
 import { Outlet, useLocation } from "react-router-dom";
 import { useStore } from "../stores/store";
 import LoadingComponent from "./LoadingComponent";
-import ModalContainer from "../modals/ModalContainer";
+import ModalContainer from "../common/modals/ModalContainer";
 import HomePage from "../../features/home/HomePage";
 import { ToastContainer } from "react-toastify";
 
