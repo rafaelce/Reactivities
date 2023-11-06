@@ -6,7 +6,6 @@ import {
   Item,
   ItemDescription,
   Label,
-  List,
   Segment,
 } from "semantic-ui-react";
 import { Activity } from "../../../app/models/activity";
