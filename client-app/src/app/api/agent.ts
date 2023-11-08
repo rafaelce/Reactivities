@@ -5,7 +5,7 @@ import { Activity, ActivityFormValues } from "../models/activity";
 import { User, UserFormValues } from "../models/user";
 import { router } from "../router/Routes";
 import { store } from "../stores/store";
-import { Profile } from "../models/profile";
+import { Photo, Profile } from "../models/profile";
 
 // funcão que adiciona um dalay nas requisições.
 const sleep = (delay: number) => {
@@ -98,6 +98,14 @@ const Account = {
 
 const Profiles = {
   get: (username: string) => requests.get<Profile>(`/profiles/${username}`),
+  uploadPhoto: (file: Blob) => {
+    let formData = new FormData();
+    formData.append("File", file);
+
+    return axios.post<Photo>("photos", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+  },
 };
 
 const agent = {
