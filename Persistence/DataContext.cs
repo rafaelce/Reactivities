@@ -13,6 +13,7 @@ namespace Persistence
         public DbSet<Activity> Activities { get; set; }
         public DbSet<ActivityAttendee> ActivityAttendees { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         //method created to set up the relationship between the tables.
         protected override void OnModelCreating(ModelBuilder builder)
@@ -30,9 +31,15 @@ namespace Persistence
 
             // relationship where 1 (activity) relates with many (Attendees)
             builder.Entity<ActivityAttendee>()
-          .HasOne(u => u.Activity)
-          .WithMany(a => a.Attendees)
-          .HasForeignKey(aa => aa.ActivityId);
+            .HasOne(u => u.Activity)
+            .WithMany(a => a.Attendees)
+            .HasForeignKey(aa => aa.ActivityId);
+
+            // relationship where 1 (activity) relates with many (Comments)
+            builder.Entity<Comment>()
+            .HasOne(a => a.Activity)
+            .WithMany(c => c.Comments)
+            .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
