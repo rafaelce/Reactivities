@@ -6,6 +6,7 @@ import { User, UserFormValues } from "../models/user";
 import { router } from "../router/Routes";
 import { store } from "../stores/store";
 import { Photo, Profile } from "../models/profile";
+import { request } from "http";
 
 // funcão que adiciona um dalay nas requisições.
 const sleep = (delay: number) => {
@@ -108,6 +109,8 @@ const Profiles = {
   },
   setMainPhoto: (id: string) => requests.post(`/photos/${id}/setMain`, {}),
   deletePhoto: (id: string) => requests.delete(`/photos/${id}`),
+  updateFollowing: (username: string) =>
+    requests.post(`/follow/${username}`, {}),
 };
 
 const agent = {
