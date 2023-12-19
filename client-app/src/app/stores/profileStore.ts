@@ -145,7 +145,7 @@ export default class ProfileStore {
           this.profile.username === store.userStore.user?.username
         ) {
           following
-            ? this.profile.followersCount++
+            ? this.profile.followingCount++
             : this.profile.followingCount--;
         }
 
