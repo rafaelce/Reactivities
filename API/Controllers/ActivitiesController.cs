@@ -11,7 +11,7 @@ namespace API.Controllers
     {
         [HttpGet]
         public async Task<IActionResult> GetActivities([FromQuery] PagingParams param)
-        => HandleResult(await Mediator.Send(new List.Query{Params = param}));
+        => HandlePagedResult(await Mediator.Send(new List.Query { Params = param }));
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetActivities(Guid id)
