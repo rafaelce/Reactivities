@@ -5,3 +5,7 @@ passo 3: adicionar a store criada no arquivo stores/store.ts
 passo 4: criar o arquivo front que exibirá as informações desse novo componente.
 passo 5: fazer as devidas configurações para o novo componente no arquivo api/agent.ts.
 passo 6: criar uma rota para o front do componente no layout/App.tsx
+
+
+[Comandos]
+npm outdated -- mostra todas as versões dos pacotes instalados.
