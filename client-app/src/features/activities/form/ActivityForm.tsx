@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Header, Segment } from "semantic-ui-react";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
@@ -43,7 +43,7 @@ export default observer(function ActivityForm() {
 
   function handleFormSubmit(activity: ActivityFormValues) {
     if (!activity.id) {
-      let newActivity = {
+      const newActivity = {
         ...activity,
         id: uuid(),
       };
