@@ -17,14 +17,14 @@ export interface IActivity {
 }
 
 export class Activity implements IActivity {
-  constructor(init: ActivityFormValues) {
-    this.id = init.id!;
-    this.title = init.title;
-    this.date = init.date;
-    this.description = init.description;
-    this.category = init.category;
-    this.venue = init.venue;
-    this.city = init.city;
+  constructor(init?: ActivityFormValues) {
+    this.id = init!.id!;
+    this.title = init!.title;
+    this.date = init!.date;
+    this.description = init!.description;
+    this.category = init!.category;
+    this.venue = init!.venue;
+    this.city = init!.city;
   }
 
   id: string;

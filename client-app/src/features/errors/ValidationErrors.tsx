@@ -1,13 +1,13 @@
 import { Message } from "semantic-ui-react";
 
 interface Props {
-  errors: string[];
+  errors: string | string[];
 }
 
 export default function ValidationErrors({ errors }: Props) {
   return (
     <Message error>
-      {errors && (
+      {errors && Array.isArray(errors) && (
         <Message.List>
           {errors.map((err: string, i: number) => (
             <Message.Item key={i}>{err}</Message.Item>

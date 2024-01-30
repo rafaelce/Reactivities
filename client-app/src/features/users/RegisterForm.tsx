@@ -50,7 +50,7 @@ export default observer(function RegisterForm() {
           />
           <ErrorMessage
             name="error"
-            render={() => <ValidationErrors errors={errors.error} />}
+            render={() => <ValidationErrors errors={errors.error!} />}
           />
           <Button
             disabled={!isValid || !dirty || isSubmitting}
